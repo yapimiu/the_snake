@@ -2,7 +2,7 @@ from random import choice, randint
 
 import pygame
 
-# Константы для размеров поля и сетки:
+# Константы для размеров поля и сетки: eqw
 SCREEN_WIDTH, SCREEN_HEIGHT = 640, 480
 GRID_SIZE = 20
 GRID_WIDTH = SCREEN_WIDTH // GRID_SIZE
