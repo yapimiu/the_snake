@@ -76,21 +76,7 @@ class Snake(GameObject):
 
     def move(self, apple):
 
-        # Простое движение вперёд (без проверки яблока)
-        cur = self.positions[0]
-        x, y = cur
-        dx, dy = self.direction
-        new_pos = ((x + dx * GRID_SIZE) % SCREEN_WIDTH, (y + dy * GRID_SIZE) % SCREEN_HEIGHT)
-        if new_pos == apple.position:
-            self.length += 1
-            apple.randomize_position()
-        if new_pos in self.positions:
-            self.length = 1
-            center = screen.get_rect().center
-            self.positions = [center]
-        self.positions.insert(0, new_pos)
-        if len(self.positions) > self.length:
-            self.positions.pop()
+
 
 
     def update_direction(self):
