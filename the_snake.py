@@ -107,7 +107,6 @@ class Snake(GameObject):
     def reset(self):
         """
         При столкновении с самой собой змейка
-        
         сбрасывается в начальное положение
         """
         center = screen.get_rect().center
