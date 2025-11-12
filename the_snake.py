@@ -81,7 +81,9 @@ class Snake(GameObject):
         return self.positions[0]
 
     def reset(self):
-        x, y = SCREEN_WIDTH // 2, SCREEN_WIDTH // 2
+        center = screen.get_rect().center
+        x = center[0] // GRID_SIZE * GRID_SIZE
+        y = center[1] // GRID_SIZE * GRID_SIZE
         self.length = 1
         self.position = (x ,y)
         self.positions = [(x ,y)]
@@ -141,7 +143,6 @@ def main():
 
         handle_keys(snake)
         snake.update_direction()
-        snake.move(apple)
 
         apple = snake.move(apple)
         screen.fill(BOARD_BACKGROUND_COLOR)
