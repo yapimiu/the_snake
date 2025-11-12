@@ -57,8 +57,11 @@ class Apple(GameObject):
 
     @staticmethod
     def randomize_position():
-        """Статический метод, который рандомно в пределах экрана
-        выбирает новые координаты яблока"""
+        """
+        Статический метод, который рандомно в пределах экрана
+
+        выбирает новые координаты яблока
+        """
         x = randint(0, GRID_WIDTH - 1) * GRID_SIZE
         y = randint(0, GRID_HEIGHT - 1) * GRID_SIZE
         return (x, y)
@@ -94,12 +97,19 @@ class Snake(GameObject):
 
     @property
     def get_head_position(self):
-        """Возвращает позицию
-        головы змейки"""
+        """
+        Возвращает позицию
+
+        головы змейки
+        """
         return self.positions[0]
 
     def reset(self):
-        """При столкновении с самой собой змейка сбрасывается в начальное положение"""
+        """
+        При столкновении с самой собой змейка
+        
+        сбрасывается в начальное положение
+        """
         center = screen.get_rect().center
         x = center[0] // GRID_SIZE * GRID_SIZE
         y = center[1] // GRID_SIZE * GRID_SIZE
