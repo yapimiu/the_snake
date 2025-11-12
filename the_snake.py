@@ -1,6 +1,5 @@
 import random
 from random import randint
-from typing import Any
 
 import pygame
 
@@ -28,7 +27,7 @@ SPEED = 10
 # Инициализация PyGame и экрана:
 pygame.init()
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), 0, 32)
-pygame.display.set_caption('Змейка')
+pygame.display.set_caption("Змейка")
 clock = pygame.time.Clock()
 
 
@@ -85,14 +84,17 @@ class Snake(GameObject):
         x = center[0] // GRID_SIZE * GRID_SIZE
         y = center[1] // GRID_SIZE * GRID_SIZE
         self.length = 1
-        self.position = (x ,y)
-        self.positions = [(x ,y)]
+        self.position = (x, y)
+        self.positions = [(x, y)]
         self.direction = random.choice([UP, DOWN, LEFT, RIGHT])
 
     def move(self, apple):
         x, y = self.get_head_position()
         dx, dy = self.direction
-        new_pos = (x + dx * GRID_SIZE) % SCREEN_WIDTH, (y + dy * GRID_SIZE) % SCREEN_HEIGHT
+        new_pos = (
+            (x + dx * GRID_SIZE) % SCREEN_WIDTH,
+            (y + dy * GRID_SIZE) % SCREEN_HEIGHT,
+        )
 
         ate_apple = False
         if new_pos == apple.position:
@@ -112,10 +114,12 @@ class Snake(GameObject):
             return Apple()
 
         return apple
+
     def update_direction(self):
         if self.next_direction:
             self.direction = self.next_direction
             self.next_direction = None
+
 
 # --- Обработка клавиш ---
 def handle_keys(game_object):
@@ -132,7 +136,6 @@ def handle_keys(game_object):
                 game_object.next_direction = LEFT
             elif event.key == pygame.K_RIGHT and game_object.direction != LEFT:
                 game_object.next_direction = RIGHT
-
 
 
 def main():
@@ -152,5 +155,5 @@ def main():
         pygame.display.update()
 
 
-if __name__ == '__main__':
-        main()
+if __name__ == "__main__":
+    main()
