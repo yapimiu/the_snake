@@ -83,6 +83,7 @@ class Snake(GameObject):
     def reset(self):
         x, y = SCREEN_WIDTH // 2, SCREEN_WIDTH // 2
         self.length = 1
+        self.position = (x ,y)
         self.positions = [(x ,y)]
         self.direction = random.choice([UP, DOWN, LEFT, RIGHT])
 
@@ -90,14 +91,25 @@ class Snake(GameObject):
         x, y = self.get_head_position()
         dx, dy = self.direction
         new_pos = (x + dx * GRID_SIZE) % SCREEN_WIDTH, (y + dy * GRID_SIZE) % SCREEN_HEIGHT
+
+        ate_apple = False
         if new_pos == apple.position:
             self.length += 1
-            self.positions.insert(0, new_pos)
+            ate_apple = True
+
+        self.positions.insert(0, new_pos)
+
         if new_pos in self.positions[1:]:
             self.reset()
+            return apple
+
         if len(self.positions) > self.length:
             self.positions.pop(-1)
 
+        if ate_apple:
+            return Apple()
+
+        return apple
     def update_direction(self):
         if self.next_direction:
             self.direction = self.next_direction
@@ -131,6 +143,7 @@ def main():
         snake.update_direction()
         snake.move(apple)
 
+        apple = snake.move(apple)
         screen.fill(BOARD_BACKGROUND_COLOR)
         apple.draw()
         snake.draw()
