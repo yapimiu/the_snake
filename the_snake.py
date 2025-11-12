@@ -1,4 +1,5 @@
 """Игра змейка"""
+
 import random
 from random import randint
 
@@ -35,6 +36,7 @@ clock = pygame.time.Clock()
 # --- Базовый класс ---
 class GameObject:
     """Базовый класс объекта, от которого наследуются все остальные объекты"""
+
     def __init__(self, position=(0, 0), color=(255, 255, 255)):
         """Инициализирует объект"""
         self.position = position
@@ -48,6 +50,7 @@ class GameObject:
 # --- Класс яблока ---
 class Apple(GameObject):
     """Яблоко, которое съедает змейка"""
+
     def __init__(self):
         """Конструктор клааса"""
         super().__init__(self.randomize_position(), APPLE_COLOR)
@@ -70,6 +73,7 @@ class Apple(GameObject):
 # --- Класс змейки ---
 class Snake(GameObject):
     """Сама змейка"""
+
     def __init__(self):
         """Конструктор змейки"""
         center = screen.get_rect().center
@@ -88,8 +92,10 @@ class Snake(GameObject):
             pygame.draw.rect(screen, self.body_color, rect)
             pygame.draw.rect(screen, BORDER_COLOR, rect, 1)
 
+    @property
     def get_head_position(self):
-        """Возвращает позицию головы змейки"""
+        """Возвращает позицию
+        головы змейки"""
         return self.positions[0]
 
     def reset(self):
@@ -104,7 +110,7 @@ class Snake(GameObject):
 
     def move(self, apple):
         """Метод отвечает за движение змейки и обновление координат яблока"""
-        x, y = self.get_head_position()
+        x, y = self.get_head_position
         dx, dy = self.direction
         new_pos = (
             (x + dx * GRID_SIZE) % SCREEN_WIDTH,
