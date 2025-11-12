@@ -1,4 +1,7 @@
+import random
 from random import randint
+from typing import Any
+
 import pygame
 
 # Константы для размеров поля и сетки:
@@ -74,16 +77,32 @@ class Snake(GameObject):
             pygame.draw.rect(screen, self.body_color, rect)
             pygame.draw.rect(screen, BORDER_COLOR, rect, 1)
 
+    def get_head_position(self):
+        return self.positions[0]
+
+    def reset(self):
+        x, y = SCREEN_WIDTH // 2, SCREEN_WIDTH // 2
+        self.length = 1
+        self.positions = [(x ,y)]
+        directions = [RIGHT, LEFT, UP, DOWN]
+        self.direction = random.Random(directions)
+
     def move(self, apple):
-
-
-
+        x, y = self.get_head_position()
+        dx, dy = self.direction
+        new_pos = (x + dx * GRID_SIZE) % SCREEN_WIDTH, (y + dy * GRID_SIZE) % SCREEN_HEIGHT
+        if new_pos == apple.position:
+            self.length += 1
+            self.positions.insert(0, new_pos)
+        if new_pos in self.positions[:2]:
+            self.reset()
+        if len(self.positions) > self.length:
+            self.position.pop(-1)
 
     def update_direction(self):
         if self.next_direction:
             self.direction = self.next_direction
             self.next_direction = None
-
 
 # --- Обработка клавиш ---
 def handle_keys(game_object):
@@ -103,21 +122,22 @@ def handle_keys(game_object):
 
 
 
+def main():
+    snake = Snake()
+    apple = Apple()
+    while True:
+        clock.tick(SPEED)
+
+        handle_keys(snake)
+        snake.update_direction()
+        snake.move(apple)
+
+        screen.fill(BOARD_BACKGROUND_COLOR)
+        apple.draw()
+        snake.draw()
+
+        pygame.display.update()
 
 
 if __name__ == '__main__':
-        snake = Snake()
-        apple = Apple()
-        while True:
-
-            clock.tick(SPEED)
-
-            handle_keys(snake)
-            snake.update_direction()
-            snake.move(apple)
-
-            screen.fill(BOARD_BACKGROUND_COLOR)
-            apple.draw()
-            snake.draw()
-
-            pygame.display.update()
+        main()
